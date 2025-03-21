@@ -1,0 +1,24 @@
+* 1과제의 결과 값은 1부터 10까지의 합에 대한 정답이 55라는 내용이 나옵니다.
+2,3번 과제
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+int main() {
+    pid_t pid;
+    int status;
+
+    pid = fork();
+    if(pid > 0) { // 부모 프로세스
+        wait(&status);
+        int ret = WEXITSTATUS(status);
+        printf("10에서 10까지 합한 결과는 %d\n", ret);
+        return 0;
+    }
+    else if(pid == 0) { // 자식 프로세스
+        execl("./sum", "sum", NULL);
+    }
+}
+를 리눅스로 실행하면 sum.c 결과는 1부터 10까지 합은 55입니다. 
+prac3_7.c 결과는 10에서 10까지 합한결과는 55라고 나옵니다. 
